@@ -17,6 +17,7 @@
 }
 
 .item{
+    background-color: black;
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 3;

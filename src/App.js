@@ -1,10 +1,13 @@
 import './App.css';
-
+import Tetrominos from './Tetrominos.jsx';
 function App() {
-  return (
 
+
+
+  return (
     <div className="container">
         <div className="board">
+            <Tetrominos/>
             <div className="item"></div>
         </div>
     </div>
