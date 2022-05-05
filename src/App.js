@@ -6,12 +6,13 @@ import { TileBoard } from "./components/TitleBoard";
 import { useGameTime } from "./hooks/useGameTime";
 import { useBoard } from "./hooks/useBoard";
 import "./App.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function App() {
 
     const [speed, setSpeed] = useState(1000);
 
-    const  [updateBoard, board, moveRight, moveLeft] = useBoard();
+    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotate] = useBoard();
 
     const onTick = useCallback(() => {
         console.log("tic tic");
@@ -34,8 +35,12 @@ function App() {
                     GO FASTER
                 </button>
                 <span className="text">time is {isRunning ? "running" : "not running"}</span>
-                <button onClick={moveRight}>right</button>
-                <button onClick={moveLeft}>left</button>
+                <div className="btn-group">
+                    <button className="button1" onClick={moveRight}>right</button>
+                    <button className="button1" onClick={moveLeft} >left</button>
+                    <button className="button1" onClick={moveDown}>down</button>
+                    <button className="button1" onClick={rotate}>rotate</button>
+               </div>
             </RightPanel>
         </GameContainer>
     );

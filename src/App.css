@@ -46,6 +46,29 @@
 }
 
 .button:hover {
-    background-color: darkgoldenrod; /* Green */
+    background-color: goldenrod; /* Green */
     color: white;
+}
+
+.btn-group button {
+    background-color: darkcyan;
+    border: 1px solid darkgreen;
+    border-radius: 4px;
+    width: 95px;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    float: left;
+}
+
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.btn-group button:hover {
+    background-color: goldenrod;
 }
