@@ -21,6 +21,29 @@ export const useBoard = () => {
         updateBoard(DIRECTION.right);
     }
 
+    const moveDown = () => {
+        updateBoard(DIRECTION.down);
+    }
+    const rotate = () => {
+        player.current.eraseFrom(board);
+        let output = player.current.tetromino.shape[0].map((_, colIndex) => player.current.tetromino.shape.map(row => row[colIndex]));
+        player.current.tetromino.shape = output;
+        if(player.current.checkCollision(board)){
+            output = player.current.tetromino.shape[0].map((_, colIndex) => player.current.tetromino.shape.map(row => row[colIndex]));
+            output = output[0].map((_, colIndex) => output.map(row => row[colIndex]));
+            output = output[0].map((_, colIndex) => output.map(row => row[colIndex]));
+            player.current.tetromino.shape = output;
+        }
+        player.current.drawOn(board);
+    }
+/*
+// Convert rows to columns
+    const mtrx = matrix.map((_, index) => matrix.map(column => column[index]));
+    // Reverse each row to rotate the matrix
+    if (dir > 0) return mtrx.map(row => row.reverse());
+    return mtrx.reverse();
+*/
+
     const updateBoard = (direction= DIRECTION.down) => {
 
         player.current.eraseFrom(board);
@@ -42,5 +65,5 @@ export const useBoard = () => {
         setBoard([...board]);
     };
 
-    return [updateBoard, board, moveRight, moveLeft];
+    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate];
 };
