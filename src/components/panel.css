@@ -1,7 +1,7 @@
 .right-panel{
     width: 400px;
-    height: 90vh;
-    background-color: lightpink;
+    height: 92.75vh;
+    background-color: darkslateblue;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

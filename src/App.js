@@ -11,7 +11,7 @@ function App() {
 
     const [speed, setSpeed] = useState(1000);
 
-    const  [updateBoard, board] = useBoard();
+    const  [updateBoard, board, moveRight, moveLeft] = useBoard();
 
     const onTick = useCallback(() => {
         console.log("tic tic");
@@ -24,16 +24,18 @@ function App() {
         <GameContainer>
             <TileBoard board={board} />
             <RightPanel>
-                <button onClick={startTime} disabled={isRunning}>
+                <button className="button" onClick={startTime} disabled={isRunning}>
                     START
                 </button>
-                <button onClick={stopTime} disabled={!isRunning}>
+                <button className="button" onClick={stopTime} disabled={!isRunning}>
                     STOP
                 </button>
-                <button onClick={() => setSpeed((prev) => prev - 100)}>
+                <button className="button" onClick={() => setSpeed((prev) => prev - 100)}>
                     GO FASTER
                 </button>
-                <span>time is {isRunning ? "curge" : "not curge"}</span>
+                <span className="text">time is {isRunning ? "running" : "not running"}</span>
+                <button onClick={moveRight}>right</button>
+                <button onClick={moveLeft}>left</button>
             </RightPanel>
         </GameContainer>
     );

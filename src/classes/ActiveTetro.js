@@ -10,6 +10,9 @@ export class ActiveTetro {
         this.tetromino = randomTetromino();
     }
 
+
+
+
     forEachTile(callback) {
         this.tetromino.shape.forEach((row, rowIdx) => {
             row.forEach((val, colIdx) => {
@@ -24,13 +27,24 @@ export class ActiveTetro {
 
     updatePosition(direction = DIRECTION.down) {
         let verticalAdjustment = 0;
-        if (direction === DIRECTION.down) {
-            verticalAdjustment = 1;
-        } else if (direction === DIRECTION.up) {
-            verticalAdjustment = -1;
+        let horizontalAdjustment = 0;
+        switch(direction){
+            case DIRECTION.down:
+                verticalAdjustment = 1;
+                break;
+            case DIRECTION.up:
+                verticalAdjustment = -1;
+                break;
+            case DIRECTION.right:
+                horizontalAdjustment = 1;
+                break;
+            case DIRECTION.left:
+                horizontalAdjustment = -1;
+
         }
 
         this.currentPos.row += verticalAdjustment;
+        this.currentPos.column += horizontalAdjustment;
     }
 
     eraseFrom(board) {
