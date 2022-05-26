@@ -13,10 +13,16 @@ export const useBoard = () => {
    //     setBoard([...board]);
    // }
 
+    const [gameOver, setGameOver] = useState(true);
     const initializePlayer = () =>{
-        player.current = new ActiveTetro();
-        player.current.drawOn(board);
-        setBoard([...board]);
+        if(gameOver){
+            const freshBoard = getEmptyBoard();;
+            console.log(freshBoard)
+            player.current = new ActiveTetro();
+            player.current.drawOn(freshBoard);
+            setBoard([...freshBoard]);
+            setGameOver(false);
+        }
     }
     useEffect(() => {
         console.log("test");
@@ -66,7 +72,13 @@ export const useBoard = () => {
         if (isCollided) {
             player.current.updatePosition(getOppositeDirection(direction));
         }
-
+        //stop game cand ajunge sus
+        if(isCollided && player.current.currentPos.row === 0){
+            player.current.drawOn(board);
+            setGameOver(true);
+           //setBoard(getEmptyBoard());
+            return;
+        }
         player.current.drawOn(board);
 
         if (isCollided && direction === DIRECTION.down) {
@@ -101,5 +113,5 @@ export const useBoard = () => {
         }
     }
 
-    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer];
+    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver];
 };
