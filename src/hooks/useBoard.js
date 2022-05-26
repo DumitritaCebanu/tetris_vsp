@@ -6,7 +6,18 @@ export const useBoard = () => {
     const [board, setBoard] = useState(getEmptyBoard());
 
     const player = useRef(new ActiveTetro());
+    const isFirstRender = useRef(true);
+   // if(isFirstRender.current === true){
+   //     player.current.drawOn(board);
+   //     isFirstRender.current = false;
+   //     setBoard([...board]);
+   // }
 
+    const initializePlayer = () =>{
+        player.current = new ActiveTetro();
+        player.current.drawOn(board);
+        setBoard([...board]);
+    }
     useEffect(() => {
         console.log("test");
         // updateBoard();
@@ -59,11 +70,36 @@ export const useBoard = () => {
         player.current.drawOn(board);
 
         if (isCollided && direction === DIRECTION.down) {
+            let linesToErase = [];
+            for(let i = 0; i < 20; i++){
+                let isLineComplete = true;
+                for(let j = 0; j < 12; j++){
+                    if(board[i][j] === null){
+                        isLineComplete = false;
+                    }
+                }
+                if(isLineComplete){
+                    linesToErase.push(i);
+                }
+            }
+            eraseLine(linesToErase, board);
             player.current = new ActiveTetro();
+            player.current.drawOn(board);
         }
 
         setBoard([...board]);
     };
 
-    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate];
+    function eraseLine(linesToErase, board){
+        for(let i = 0; i < linesToErase.length; i++){
+           let lineIndex = linesToErase[i] - i;
+           for(let k = lineIndex; k >= 0; k--){
+                for(let m = 0; m < 12; m++){
+                    board[k][m] = board[k - 1][m];
+                }
+           }
+        }
+    }
+
+    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer];
 };

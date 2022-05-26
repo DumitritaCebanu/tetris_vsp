@@ -12,20 +12,20 @@ function App() {
 
     const [speed, setSpeed] = useState(1000);
 
-    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotate] = useBoard();
+    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer] = useBoard();
 
     const onTick = useCallback(() => {
         console.log("tic tic");
         updateBoard();
     }, []);
 
-    const { isRunning, startTime, stopTime } = useGameTime({ onTick, speed });
+    const { isRunning, startTime, stopTime} = useGameTime({ onTick, speed });
 
     return (
         <GameContainer>
             <TileBoard board={board} />
             <RightPanel>
-                <button className="button" onClick={startTime} disabled={isRunning}>
+                <button className="button" onClick={()=>{initializePlayer(); startTime()}} disabled={isRunning}>
                     START
                 </button>
                 <button className="button" onClick={stopTime} disabled={!isRunning}>
