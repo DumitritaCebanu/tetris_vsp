@@ -12,20 +12,25 @@ function App() {
 
     const [speed, setSpeed] = useState(1000);
 
-    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver] = useBoard();
+    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver, score] = useBoard();
 
     const onTick = useCallback(() => {
         console.log("tic tic");
         updateBoard();
-    }, [board]);
+    }, [gameOver]);
 
     const { isRunning, startTime, stopTime} = useGameTime({ onTick, speed });
 
     useEffect( () => {
         if(gameOver && isRunning){
             stopTime();
+            setSpeed(1000);
         }
     },[gameOver])
+
+    useEffect(() => {
+        setSpeed((prev) => 0.9 * prev);
+    }, [score])
 
     return (
         <GameContainer>
@@ -46,6 +51,7 @@ function App() {
                     <button className="button1" onClick={moveRight}>right</button>
                     <button className="button1" onClick={moveDown}>down</button>
                     <button className="button1" onClick={rotate}>rotate</button>
+                    <span className="text-score"> Score: {score} </span>
                </div>
             </RightPanel>
         </GameContainer>

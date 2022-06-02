@@ -4,7 +4,7 @@ import {DIRECTION, getEmptyBoard, getOppositeDirection} from "../utils/utils";
 
 export const useBoard = () => {
     const [board, setBoard] = useState(getEmptyBoard());
-
+    const [score, setScore] = useState(0);
     const player = useRef(new ActiveTetro());
     const isFirstRender = useRef(true);
    // if(isFirstRender.current === true){
@@ -22,6 +22,7 @@ export const useBoard = () => {
             player.current.drawOn(freshBoard);
             setBoard([...freshBoard]);
             setGameOver(false);
+            setScore(0);
         }
     }
     useEffect(() => {
@@ -76,6 +77,7 @@ export const useBoard = () => {
         if(isCollided && player.current.currentPos.row === 0){
             player.current.drawOn(board);
             setGameOver(true);
+            console.log("game over!!!");
            //setBoard(getEmptyBoard());
             return;
         }
@@ -92,6 +94,7 @@ export const useBoard = () => {
                 }
                 if(isLineComplete){
                     linesToErase.push(i);
+                    setScore((prev) => prev + 1);
                 }
             }
             eraseLine(linesToErase, board);
@@ -104,7 +107,7 @@ export const useBoard = () => {
 
     function eraseLine(linesToErase, board){
         for(let i = 0; i < linesToErase.length; i++){
-           let lineIndex = linesToErase[i] - i;
+           let lineIndex = linesToErase[i];
            for(let k = lineIndex; k >= 0; k--){
                 for(let m = 0; m < 12; m++){
                     board[k][m] = board[k - 1][m];
@@ -113,5 +116,5 @@ export const useBoard = () => {
         }
     }
 
-    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver];
+    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver, score];
 };

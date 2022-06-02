@@ -29,6 +29,11 @@
     font-size: 13px;
     font-style: italic;
 }
+.text-score{
+    color: white;
+    font-size: 20px;
+    font-style:normal;
+}
 
 .button{
     background-color: darkcyan; /* Green */

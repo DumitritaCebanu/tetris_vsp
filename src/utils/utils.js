@@ -1,4 +1,4 @@
-export const emptyBoard = [
+const emptyBoard = [
     [null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null],
