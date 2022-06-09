@@ -70,6 +70,6 @@ export class ActiveTetro {
     }
 
     drawOn(board) {
-        this.forEachTile((row, column, color) => (board[row][column] = color));
+            this.forEachTile((row, column, color) => (board[row][column] = color));
     }
 }
