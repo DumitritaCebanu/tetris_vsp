@@ -42,17 +42,34 @@ export const useBoard = () => {
     const moveDown = () => {
         updateBoard(DIRECTION.down);
     }
-    const rotate = () => {
+    const rotateRight = () => {
         player.current.eraseFrom(board);
-        let output = player.current.tetromino.shape[0].map((_, colIndex) => player.current.tetromino.shape.map(row => row[colIndex]));
-        player.current.tetromino.shape = output;
-        if(player.current.checkCollision(board)){
-            output = player.current.tetromino.shape[0].map((_, colIndex) => player.current.tetromino.shape.map(row => row[colIndex]));
-            output = output[0].map((_, colIndex) => output.map(row => row[colIndex]));
-            output = output[0].map((_, colIndex) => output.map(row => row[colIndex]));
-            player.current.tetromino.shape = output;
-        }
+        var result = [];
+        player.current.tetromino.shape.forEach(function (a, i, aa) {
+            a.forEach(function (b, j, bb) {
+                result[bb.length - j - 1] = result[bb.length - j - 1] || [];
+                result[bb.length - j - 1][i] = b;
+            });
+        });
+        player.current.tetromino.shape = result;
         player.current.drawOn(board);
+    }
+
+    const rotateLeft = () => {
+        player.current.eraseFrom(board);
+        var result = [];
+        player.current.tetromino.shape.forEach(function (a, i, aa) {
+            a.forEach(function (b, j, bb) {
+                result[j] = result[j] || [];
+                result[j][aa.length - i - 1] = b;
+            });
+        });
+        player.current.tetromino.shape = result;
+        if(player.current.checkCollision(board)){
+            rotateRight();
+        } else {
+            player.current.drawOn(board);
+        }
     }
 /*
 // Convert rows to columns
@@ -116,5 +133,5 @@ export const useBoard = () => {
         }
     }
 
-    return [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver, score];
+    return [updateBoard, board, moveRight, moveLeft, moveDown, rotateLeft, initializePlayer, gameOver, score];
 };
