@@ -108,7 +108,7 @@ export const useBoard = () => {
     function eraseLine(linesToErase, board){
         for(let i = 0; i < linesToErase.length; i++){
            let lineIndex = linesToErase[i];
-           for(let k = lineIndex; k >= 0; k--){
+           for(let k = lineIndex; k > 0; k--){
                 for(let m = 0; m < 12; m++){
                     board[k][m] = board[k - 1][m];
                 }
