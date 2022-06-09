@@ -12,7 +12,7 @@ function App() {
 
     const [speed, setSpeed] = useState(1000);
 
-    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotate, initializePlayer, gameOver, score] = useBoard();
+    const  [updateBoard, board, moveRight, moveLeft, moveDown, rotateLeft, initializePlayer, gameOver, score] = useBoard();
 
     const onTick = useCallback(() => {
         console.log("tic tic");
@@ -50,7 +50,7 @@ function App() {
                     <button className="button1" onClick={moveLeft} >left</button>
                     <button className="button1" onClick={moveRight}>right</button>
                     <button className="button1" onClick={moveDown}>down</button>
-                    <button className="button1" onClick={rotate}>rotate</button>
+                    <button className="button1" onClick={rotateLeft}>rotate</button>
                     <span className="text-score"> Score: {score} </span>
                </div>
             </RightPanel>
